@@ -1,5 +1,7 @@
 import mongoose from 'mongoose';
 
+import { Password } from './../services/password';
+
 // interface describing props needed to create user
 interface UserAttributes {
   email: string;
@@ -31,6 +33,16 @@ const userSchema = new mongoose.Schema({
 userSchema.statics.build = function (userAttributes: UserAttributes) {
   return new User(userAttributes);
 };
+
+// pre save middleware to encrypt password
+userSchema.pre('save', async function (next) {
+  if (this.isModified('password')) {
+    const hashedPassword = await Password.toHash(this.password);
+    this.set('password', hashedPassword);
+  }
+
+  next();
+});
 
 const User = mongoose.model<UserDoc, UserModel>('User', userSchema);
 
