@@ -1,5 +1,6 @@
 import express, { Request, Response, NextFunction } from 'express';
 import { body, validationResult } from 'express-validator';
+import jwt from 'jsonwebtoken';
 
 import { User } from '../models/user';
 
@@ -30,10 +31,20 @@ router.post(
 
     if (existingUser) throw new BadRequestError('Email already in use.');
 
-    // encrypt password
+    // encrypt password - handled by pre-save middleware
 
     const user = User.build({ email, password });
     await user.save();
+
+    // Generate token
+    const userJwt = jwt.sign(
+      { id: user.id, email: user.email },
+      process.env.JWT_KEY!
+    );
+
+    // Store jwt on session object
+    //
+    req.session = { jwt: userJwt };
 
     res.status(201).send(user);
   }
