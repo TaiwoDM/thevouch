@@ -6,6 +6,7 @@ import { BadRequestError } from '../errors/bad-request-error';
 import { RequestValidationError } from '../errors/request-validation-error';
 import { User } from '../models/user';
 import { Password } from './../services/password';
+import { validationRequest } from '../middlewares/validate-request';
 
 const router = express.Router();
 
@@ -18,13 +19,8 @@ router.post(
       .notEmpty()
       .withMessage('You must supply a password'),
   ],
+  validationRequest,
   async (req: Request, res: Response, next: NextFunction) => {
-    const errors = validationResult(req);
-
-    if (!errors.isEmpty()) {
-      throw new RequestValidationError(errors.array());
-    }
-
     const { email, password } = req.body;
 
     const existingUser = await User.findOne({ email });

@@ -6,6 +6,7 @@ import { User } from '../models/user';
 
 import { RequestValidationError } from '../errors/request-validation-error';
 import { BadRequestError } from '../errors/bad-request-error';
+import { validationRequest } from '../middlewares/validate-request';
 
 const router = express.Router();
 
@@ -18,6 +19,7 @@ router.post(
       .isLength({ min: 6, max: 20 })
       .withMessage('Password must be between 6 and 20 characters!'),
   ],
+  validationRequest,
   async (req: Request, res: Response, next: NextFunction) => {
     const errors = validationResult(req);
 
