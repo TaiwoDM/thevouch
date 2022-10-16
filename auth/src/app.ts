@@ -16,7 +16,6 @@ app.set('trust proxy', true);
 app.use(express.json());
 app.use(
   cookieSession({
-    name: 'session',
     signed: false,
     secure: process.env.NODE_ENV !== 'test',
   })
