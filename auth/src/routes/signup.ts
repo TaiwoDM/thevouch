@@ -1,12 +1,13 @@
 import express, { Request, Response, NextFunction } from 'express';
 import { body, validationResult } from 'express-validator';
 import jwt from 'jsonwebtoken';
+import {
+  RequestValidationError,
+  BadRequestError,
+  validationRequest,
+} from '@gethomes/common';
 
 import { User } from '../models/user';
-
-import { RequestValidationError } from '../errors/request-validation-error';
-import { BadRequestError } from '../errors/bad-request-error';
-import { validationRequest } from '../middlewares/validate-request';
 
 const router = express.Router();
 
