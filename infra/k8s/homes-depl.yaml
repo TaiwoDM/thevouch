@@ -1,23 +1,23 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: auth-depl
+  name: homes-depl
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: auth
+      app: homes
   template:
     metadata:
       labels:
-        app: auth
+        app: homes
     spec:
       containers:
-        - name: auth
-          image: dsprouts/auth
+        - name: homes
+          image: dsprouts/homes
           env:
             - name: MONGO_URI
-              value: 'mongodb://auth-mongo-srv:27017/auth'
+              value: 'mongodb://homes-mongo-srv:27017/homes'
             - name: JWT_KEY
               valueFrom:
                 secretKeyRef:
@@ -28,12 +28,12 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: auth-srv
+  name: homes-srv
 spec:
   selector:
-    app: auth
+    app: homes
   ports:
-    - name: auth
+    - name: homes
       protocol: TCP
       port: 3000
       targetPort: 3000
