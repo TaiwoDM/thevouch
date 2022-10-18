@@ -18,6 +18,13 @@ spec:
                 name: auth-srv
                 port:
                   number: 3000
+          - path: /api/homes/?(.*)
+            pathType: Prefix
+            backend:
+              service:
+                name: homes-srv
+                port:
+                  number: 3000
           - path: /?(.*)
             pathType: Prefix
             backend:
