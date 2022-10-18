@@ -5,7 +5,7 @@ import { Home } from '../models/homes';
 
 const router = express.Router();
 
-router.get('/api/hommes/:id', async (req: Request, res: Response) => {
+router.get('/api/homes/:id', async (req: Request, res: Response) => {
   const home = await Home.findById(req.params.id);
 
   if (!home) {
