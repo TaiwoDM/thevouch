@@ -2,7 +2,7 @@ import express, { Request, Response } from 'express';
 import { requireAuth, validationRequest } from '@gethomes/common';
 import { body } from 'express-validator';
 
-import { Home } from '../models/homes';
+import { Home } from '../models/home';
 
 const router = express.Router();
 

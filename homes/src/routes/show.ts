@@ -1,7 +1,7 @@
 import express, { Request, Response } from 'express';
 import { NotFoundError } from '@gethomes/common';
 
-import { Home } from '../models/homes';
+import { Home } from '../models/home';
 
 const router = express.Router();
 
