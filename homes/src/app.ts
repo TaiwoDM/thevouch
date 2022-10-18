@@ -4,6 +4,7 @@ import cookieSession from 'cookie-session';
 import { errorHandler, NotFoundError, currentUser } from '@gethomes/common';
 
 import { createHomeRouter } from './routes/new';
+import { showHomeRouter } from './routes/show';
 
 const app = express();
 app.set('trust proxy', true);
@@ -19,6 +20,7 @@ app.use(
 app.use(currentUser);
 
 app.use(createHomeRouter);
+app.use(showHomeRouter);
 
 app.all('*', () => {
   throw new NotFoundError();
