@@ -5,6 +5,7 @@ import { errorHandler, NotFoundError, currentUser } from '@gethomes/common';
 
 import { createHomeRouter } from './routes/new';
 import { showHomeRouter } from './routes/show';
+import { indexHomeRouter } from './routes/index';
 
 const app = express();
 app.set('trust proxy', true);
@@ -21,6 +22,7 @@ app.use(currentUser);
 
 app.use(createHomeRouter);
 app.use(showHomeRouter);
+app.use(indexHomeRouter);
 
 app.all('*', () => {
   throw new NotFoundError();
