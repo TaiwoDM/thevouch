@@ -7,7 +7,7 @@ import { Home } from '../models/homes';
 const router = express.Router();
 
 router.post(
-  '/api/tickets',
+  '/api/homes',
   requireAuth,
   [
     body('title').not().isEmpty().withMessage('Title is required'),
