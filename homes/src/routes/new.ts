@@ -10,7 +10,8 @@ router.post(
   '/api/homes',
   requireAuth,
   [
-    body('title').not().isEmpty().withMessage('Title is required'),
+    body('description').not().isEmpty().withMessage('Description is required'),
+    body('picture').not().isEmpty().withMessage('Picture is required'),
     body('price')
       .isFloat({ gt: 0 })
       .withMessage('Price must be greater than 0'),
