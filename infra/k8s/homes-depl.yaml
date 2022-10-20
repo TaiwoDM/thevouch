@@ -23,6 +23,15 @@ spec:
                 secretKeyRef:
                   name: jwt-secret
                   key: JWT_KEY
+            - name: NATS_URL
+              value: 'http://nats-srv:4222'
+            - name: NATS_CLUSTER_ID
+              value: gethomes
+            - name: NATS_CLIENT_ID
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+
 ---
 # ClusterIP service config. It can be done on a stand alone config but since there's a 1-1 mapping between service and deployments. This works
 apiVersion: v1
