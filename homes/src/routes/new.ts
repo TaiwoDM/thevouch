@@ -10,6 +10,7 @@ router.post(
   '/api/homes',
   requireAuth,
   [
+    body('title').not().isEmpty().withMessage('Title is required'),
     body('description').not().isEmpty().withMessage('Description is required'),
     body('picture').not().isEmpty().withMessage('Picture is required'),
     body('price')
@@ -18,9 +19,10 @@ router.post(
   ],
   validationRequest,
   async (req: Request, res: Response) => {
-    const { description, price, picture } = req.body;
+    const { title, description, price, picture } = req.body;
 
     const home = Home.build({
+      title,
       description,
       picture,
       price,

@@ -15,6 +15,7 @@ router.put(
   '/api/homes/:id',
   requireAuth,
   [
+    body('title').not().isEmpty().withMessage('Title is required'),
     body('description').not().isEmpty().withMessage('Description is required'),
     body('picture').not().isEmpty().withMessage('picture is required'),
     body('price')
@@ -34,6 +35,7 @@ router.put(
     }
 
     home.set({
+      title: req.body.title,
       description: req.body.description,
       price: req.body.price,
       picture: req.body.picture,
