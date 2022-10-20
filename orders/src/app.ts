@@ -3,10 +3,10 @@ import 'express-async-errors';
 import cookieSession from 'cookie-session';
 import { errorHandler, NotFoundError, currentUser } from '@gethomes/common';
 
-import { createHomeRouter } from './routes/new';
-import { showHomeRouter } from './routes/show';
-import { indexHomeRouter } from './routes/index';
-import { updateHomeRouter } from './routes/update';
+import { newOrderRouter } from './routes/new';
+import { showOrderRouter } from './routes/show';
+import { indexOrderRouter } from './routes/index';
+import { deleteOrderRouter } from './routes/delete';
 
 const app = express();
 app.set('trust proxy', true);
@@ -21,10 +21,10 @@ app.use(
 
 app.use(currentUser);
 
-app.use(createHomeRouter);
-app.use(showHomeRouter);
-app.use(indexHomeRouter);
-app.use(updateHomeRouter);
+app.use(newOrderRouter);
+app.use(showOrderRouter);
+app.use(indexOrderRouter);
+app.use(deleteOrderRouter);
 
 app.all('*', () => {
   throw new NotFoundError();
