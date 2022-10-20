@@ -1,5 +1,7 @@
 import mongoose from 'mongoose';
 
+import { Order, OrderStatus } from './order';
+
 interface HomeAttributes {
   title: string;
   price: number;
@@ -12,6 +14,7 @@ interface HomeModel extends mongoose.Model<HomeDoc> {
 export interface HomeDoc extends mongoose.Document {
   title: string;
   price: number;
+  isReserved(): Promise<boolean>;
 }
 
 const homeSchema = new mongoose.Schema(
@@ -39,6 +42,25 @@ const homeSchema = new mongoose.Schema(
 
 homeSchema.statics.build = function (homeAttributes: HomeAttributes) {
   return new Home(homeAttributes);
+};
+
+// Run query to look at all orders.  Find an order where the home
+// is the home we just found *and* the orders status is *not* cancelled.
+// If we find an order from that means the home *is* reserved
+homeSchema.methods.isReserved = async function () {
+  // this === the ticket document that we just called 'isReserved' on
+  const existingOrder = await Order.findOne({
+    home: this,
+    status: {
+      $in: [
+        OrderStatus.Created,
+        OrderStatus.AwaitingPayment,
+        OrderStatus.Complete,
+      ],
+    },
+  });
+
+  return !!existingOrder;
 };
 
 const Home = mongoose.model<HomeDoc, HomeModel>('Home', homeSchema);
