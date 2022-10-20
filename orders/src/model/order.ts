@@ -1,6 +1,8 @@
 import mongoose from 'mongoose';
 import { OrderStatus } from '@gethomes/common';
 
+export { OrderStatus };
+
 import { HomeDoc } from './home';
 
 interface OrderAttributes {
