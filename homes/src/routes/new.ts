@@ -3,6 +3,8 @@ import { requireAuth, validationRequest } from '@gethomes/common';
 import { body } from 'express-validator';
 
 import { Home } from '../models/home';
+import { HomeCreatedPublisher } from '../events/publishers/home-created-publisher';
+import { natsWrapper } from '../nats_wrapper';
 
 const router = express.Router();
 
@@ -29,6 +31,15 @@ router.post(
       userId: req.currentUser!.id,
     });
     await home.save();
+
+    new HomeCreatedPublisher(natsWrapper.client).publish({
+      id: home.id,
+      title: home.title,
+      description: home.description,
+      picture: home.picture,
+      price: home.price,
+      userId: home.userId,
+    });
 
     res.status(201).send(home);
   }

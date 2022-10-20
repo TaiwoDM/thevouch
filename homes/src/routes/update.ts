@@ -8,6 +8,8 @@ import {
 } from '@gethomes/common';
 
 import { Home } from '../models/home';
+import { HomeUpdatedPublisher } from '../events/publishers/home-updated-publisher';
+import { natsWrapper } from '../nats_wrapper';
 
 const router = express.Router();
 
@@ -42,6 +44,15 @@ router.put(
     });
 
     await home.save();
+
+    new HomeUpdatedPublisher(natsWrapper.client).publish({
+      id: home.id,
+      title: home.title,
+      description: home.description,
+      picture: home.picture,
+      price: home.price,
+      userId: home.userId,
+    });
 
     res.send(home);
   }
