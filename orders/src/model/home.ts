@@ -11,6 +11,7 @@ interface HomeAttributes {
 
 interface HomeModel extends mongoose.Model<HomeDoc> {
   build(homeAttributes: HomeAttributes): HomeDoc;
+  findByEvent(event: { id: string; version: number }): Promise<HomeDoc | null>;
 }
 
 export interface HomeDoc extends mongoose.Document {
@@ -44,6 +45,13 @@ const homeSchema = new mongoose.Schema(
 
 homeSchema.set('versionKey', 'version');
 homeSchema.plugin(updateIfCurrentPlugin);
+
+homeSchema.statics.findByEvent = (event: { id: string; version: number }) => {
+  return Home.findOne({
+    _id: event.id,
+    version: event.version - 1,
+  });
+};
 
 homeSchema.statics.build = function (homeAttributes: HomeAttributes) {
   return new Home({

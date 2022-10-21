@@ -8,10 +8,7 @@ export class HomeUpdatedListener extends Listener<HomeUpdatedEvent> {
   queueGroupName = queueGroupName;
 
   async onMessage(data: HomeUpdatedEvent['data'], msg: Message) {
-    const home = await Home.findOne({
-      _id: data.id,
-      version: data.version - 1,
-    });
+    const home = await Home.findByEvent(data);
 
     if (!home) {
       throw new Error('Home not found');
