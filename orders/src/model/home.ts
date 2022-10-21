@@ -3,6 +3,7 @@ import mongoose from 'mongoose';
 import { Order, OrderStatus } from './order';
 
 interface HomeAttributes {
+  id: string;
   title: string;
   price: number;
 }
@@ -34,14 +35,17 @@ const homeSchema = new mongoose.Schema(
       transform(doc, ret) {
         ret.id = ret._id;
         delete ret._id;
-        delete ret.__v;
       },
     },
   }
 );
 
 homeSchema.statics.build = function (homeAttributes: HomeAttributes) {
-  return new Home(homeAttributes);
+  return new Home({
+    _id: homeAttributes.id,
+    title: homeAttributes.title,
+    price: homeAttributes.price,
+  });
 };
 
 // Run query to look at all orders.  Find an order where the home

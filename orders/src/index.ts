@@ -2,6 +2,8 @@ import mongoose from 'mongoose';
 
 import { app } from './app';
 import { natsWrapper } from './nats_wrapper';
+import { HomeCreatedListener } from './events/listeners/home-created-listener';
+import { HomeUpdatedListener } from './events/listeners/home-updated-listener';
 
 // connect to db
 const start = async () => {
@@ -33,6 +35,9 @@ const start = async () => {
     });
     process.on('SIGINT', () => natsWrapper.client.close());
     process.on('SIGTERM', () => natsWrapper.client.close());
+
+    new HomeCreatedListener(natsWrapper.client).listen();
+    new HomeUpdatedListener(natsWrapper.client).listen();
 
     const connect = await mongoose.connect(process.env.MONGO_URI);
     console.log('Connected to mongodb');
