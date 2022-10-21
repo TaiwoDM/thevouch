@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import { updateIfCurrentPlugin } from 'mongoose-update-if-current';
 
 interface HomeAttributes {
   title: string;
@@ -18,6 +19,7 @@ interface HomeDoc extends mongoose.Document {
   price: number;
   picture: string;
   userId: string;
+  version: number;
 }
 
 const homeSchema = new mongoose.Schema(
@@ -48,11 +50,13 @@ const homeSchema = new mongoose.Schema(
       transform(doc, ret) {
         ret.id = ret._id;
         delete ret._id;
-        delete ret.__v;
       },
     },
   }
 );
+
+homeSchema.set('versionKey', 'version');
+homeSchema.plugin(updateIfCurrentPlugin);
 
 homeSchema.statics.build = function (homeAttributes: HomeAttributes) {
   return new Home(homeAttributes);
