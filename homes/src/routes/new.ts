@@ -39,6 +39,7 @@ router.post(
       picture: home.picture,
       price: home.price,
       userId: home.userId,
+      version: home.version,
     });
 
     res.status(201).send(home);

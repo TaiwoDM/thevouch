@@ -52,6 +52,7 @@ router.put(
       picture: home.picture,
       price: home.price,
       userId: home.userId,
+      version: home.version,
     });
 
     res.send(home);
