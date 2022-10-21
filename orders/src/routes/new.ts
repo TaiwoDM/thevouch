@@ -66,6 +66,7 @@ router.post(
         id: home.id,
         price: home.price,
       },
+      version: order.version,
     });
 
     res.status(201).send({});
