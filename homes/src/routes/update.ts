@@ -5,6 +5,7 @@ import {
   NotFoundError,
   requireAuth,
   NotAuthorizedError,
+  BadRequestError,
 } from '@gethomes/common';
 
 import { Home } from '../models/home';
@@ -30,6 +31,10 @@ router.put(
 
     if (!home) {
       throw new NotFoundError();
+    }
+
+    if (home.orderId) {
+      throw new BadRequestError('Cannot edit a reserved Home');
     }
 
     if (home.userId !== req.currentUser!.id) {
