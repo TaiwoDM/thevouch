@@ -46,14 +46,19 @@ const homeSchema = new mongoose.Schema(
 homeSchema.set('versionKey', 'version');
 homeSchema.plugin(updateIfCurrentPlugin);
 
-homeSchema.statics.findByEvent = (event: { id: string; version: number }) => {
-  return Home.findOne({
+homeSchema.statics.findByEvent = async (event: {
+  id: string;
+  version: number;
+}) => {
+  const home = await Home.findOne({
     _id: event.id,
     version: event.version - 1,
   });
+
+  return home;
 };
 
-homeSchema.statics.build = function (homeAttributes: HomeAttributes) {
+homeSchema.statics.build = (homeAttributes: HomeAttributes) => {
   return new Home({
     _id: homeAttributes.id,
     title: homeAttributes.title,
@@ -67,7 +72,7 @@ homeSchema.statics.build = function (homeAttributes: HomeAttributes) {
 homeSchema.methods.isReserved = async function () {
   // this === the home document that we just called 'isReserved' on
   const existingOrder = await Order.findOne({
-    home: this,
+    home: this as any,
     status: {
       $in: [
         OrderStatus.Created,
