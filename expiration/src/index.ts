@@ -29,7 +29,7 @@ const start = async () => {
 
     new OrderCreatedListener(natsWrapper.client).listen();
   } catch (err) {
-    console.log('something went wrong while connecting to db');
+    console.log('something went wrong while connecting to NATS');
   }
 };
 
