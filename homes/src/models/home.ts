@@ -20,6 +20,7 @@ interface HomeDoc extends mongoose.Document {
   picture: string;
   userId: string;
   version: number;
+  orderId?: string;
 }
 
 const homeSchema = new mongoose.Schema(
@@ -43,6 +44,9 @@ const homeSchema = new mongoose.Schema(
     userId: {
       type: String,
       required: true,
+    },
+    orderId: {
+      type: String,
     },
   },
   {
