@@ -65,7 +65,7 @@ homeSchema.statics.build = function (homeAttributes: HomeAttributes) {
 // is the home we just found *and* the orders status is *not* cancelled.
 // If we find an order from that means the home *is* reserved
 homeSchema.methods.isReserved = async function () {
-  // this === the ticket document that we just called 'isReserved' on
+  // this === the home document that we just called 'isReserved' on
   const existingOrder = await Order.findOne({
     home: this,
     status: {
