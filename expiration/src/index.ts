@@ -1,5 +1,7 @@
 import { natsWrapper } from './nats_wrapper';
 
+import { OrderCreatedListener } from './events/listeners/order-created-listener';
+
 // connect to db
 const start = async () => {
   if (!process.env.NATS_CLUSTER_ID) {
@@ -24,6 +26,8 @@ const start = async () => {
     });
     process.on('SIGINT', () => natsWrapper.client.close());
     process.on('SIGTERM', () => natsWrapper.client.close());
+
+    new OrderCreatedListener(natsWrapper.client).listen();
   } catch (err) {
     console.log('something went wrong while connecting to db');
   }
