@@ -69,7 +69,7 @@ router.post(
       version: order.version,
     });
 
-    res.status(201).send({ order });
+    res.status(201).send(order);
   }
 );
 
