@@ -20,7 +20,10 @@ router.put(
   [
     body('title').not().isEmpty().withMessage('Title is required'),
     body('description').not().isEmpty().withMessage('Description is required'),
-    body('picture').not().isEmpty().withMessage('picture is required'),
+    body('percentageOff')
+      .not()
+      .isEmpty()
+      .withMessage('percentageOff is required'),
     body('price')
       .isFloat({ gt: 0 })
       .withMessage('Price must be provided and must be greater than 0'),
@@ -45,7 +48,7 @@ router.put(
       title: req.body.title,
       description: req.body.description,
       price: req.body.price,
-      picture: req.body.picture,
+      percentageOff: req.body.percentageOff,
     });
 
     await home.save();
@@ -54,7 +57,7 @@ router.put(
       id: home.id,
       title: home.title,
       description: home.description,
-      picture: home.picture,
+      percentageOff: home.percentageOff,
       price: home.price,
       userId: home.userId,
       version: home.version,

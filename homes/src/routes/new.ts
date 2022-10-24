@@ -14,19 +14,21 @@ router.post(
   [
     body('title').not().isEmpty().withMessage('Title is required'),
     body('description').not().isEmpty().withMessage('Description is required'),
-    body('picture').not().isEmpty().withMessage('Picture is required'),
+    body('percentageOff')
+      .isFloat({ gt: 0 })
+      .withMessage('Percentage Off is required'),
     body('price')
       .isFloat({ gt: 0 })
       .withMessage('Price must be greater than 0'),
   ],
   validationRequest,
   async (req: Request, res: Response) => {
-    const { title, description, price, picture } = req.body;
+    const { title, description, price, percentageOff } = req.body;
 
     const home = Home.build({
       title,
       description,
-      picture,
+      percentageOff,
       price,
       userId: req.currentUser!.id,
     });
@@ -36,7 +38,7 @@ router.post(
       id: home.id,
       title: home.title,
       description: home.description,
-      picture: home.picture,
+      percentageOff: home.percentageOff,
       price: home.price,
       userId: home.userId,
       version: home.version,

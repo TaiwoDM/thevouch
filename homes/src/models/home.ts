@@ -5,7 +5,7 @@ interface HomeAttributes {
   title: string;
   description: string;
   price: number;
-  picture: string;
+  percentageOff: number;
   userId: string;
 }
 
@@ -17,7 +17,7 @@ interface HomeDoc extends mongoose.Document {
   title: string;
   description: string;
   price: number;
-  picture: string;
+  percentageOff: number;
   userId: string;
   version: number;
   orderId?: string;
@@ -37,8 +37,8 @@ const homeSchema = new mongoose.Schema(
       type: Number,
       required: true,
     },
-    picture: {
-      type: String,
+    percentageOff: {
+      type: Number,
       required: true,
     },
     userId: {

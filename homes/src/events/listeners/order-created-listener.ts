@@ -29,7 +29,7 @@ export class OrderCreatedListener extends Listener<OrderCreatedEvent> {
       version: home.version,
       title: home.title,
       description: home.description,
-      picture: home.picture,
+      percentageOff: home.percentageOff,
       price: home.price,
       userId: home.userId,
       orderId: home.orderId,
