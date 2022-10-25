@@ -6,7 +6,7 @@ import { Home } from '../models/home';
 const router = express.Router();
 
 router.get('/api/homes', async (req: Request, res: Response) => {
-  const homes = await Home.find({});
+  const homes = await Home.find({ orderId: undefined });
 
   res.send(homes);
 });
