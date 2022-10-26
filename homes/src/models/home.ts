@@ -2,7 +2,8 @@ import mongoose from 'mongoose';
 import { updateIfCurrentPlugin } from 'mongoose-update-if-current';
 
 interface HomeAttributes {
-  title: string;
+  product: string;
+  productPrice: number;
   description: string;
   price: number;
   percentageOff: number;
@@ -14,7 +15,8 @@ interface HomeModel extends mongoose.Model<HomeDoc> {
 }
 
 interface HomeDoc extends mongoose.Document {
-  title: string;
+  product: string;
+  productPrice: number;
   description: string;
   price: number;
   percentageOff: number;
@@ -25,8 +27,12 @@ interface HomeDoc extends mongoose.Document {
 
 const homeSchema = new mongoose.Schema(
   {
-    title: {
+    product: {
       type: String,
+      required: true,
+    },
+    productPrice: {
+      type: Number,
       required: true,
     },
     description: {

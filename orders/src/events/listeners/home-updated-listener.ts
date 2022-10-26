@@ -14,8 +14,8 @@ export class HomeUpdatedListener extends Listener<HomeUpdatedEvent> {
       throw new Error('Home not found');
     }
 
-    const { title, price } = data;
-    home.set({ title, price });
+    const { product, price } = data;
+    home.set({ product, price });
     await home.save();
 
     msg.ack();

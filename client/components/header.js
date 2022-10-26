@@ -4,14 +4,14 @@ export default ({ currentUser }) => {
   const links = [
     !currentUser && { label: 'Sign Up', href: '/auth/signup' },
     !currentUser && { label: 'Sign In', href: '/auth/signin' },
-    currentUser && { label: 'Sell Home', href: '/homes/new' },
+    currentUser && { label: 'Sell Home', href: '/vouchers/new' },
     currentUser && { label: 'My Orders', href: '/orders' },
     currentUser && { label: 'Sign Out', href: '/auth/signout' },
   ]
     .filter((linkConfig) => linkConfig)
     .map(({ label, href }) => {
       return (
-        <button type="button" class="btn">
+        <button key={href} type="button" className="btn">
           <Link href={href}>
             <a className="ntext-black btn btn-sm btn-outline-secondary">
               {label}
@@ -22,15 +22,15 @@ export default ({ currentUser }) => {
     });
 
   return (
-    <header class="p-0 mt-2">
-      <div class="container">
-        <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+    <header className="p-0 mt-2">
+      <div className="container">
+        <div className="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
           <Link href="/">
             <a
               href="/"
-              class="d-flex align-items-center mb-2 mb-lg-0 text-black text-decoration-none"
+              className="d-flex align-items-center mb-2 mb-lg-0 text-black text-decoration-none"
             >
-              GitTix
+              TheVouch
             </a>
           </Link>
 
@@ -41,7 +41,7 @@ export default ({ currentUser }) => {
             {links}
           </ul>
 
-          <div class=" text-end d-flex justify-content-end">{links}</div>
+          <div className=" text-end d-flex justify-content-end">{links}</div>
         </div>
       </div>
     </header>

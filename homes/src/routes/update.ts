@@ -18,15 +18,20 @@ router.put(
   '/api/homes/:id',
   requireAuth,
   [
-    body('title').not().isEmpty().withMessage('Title is required'),
-    body('description').not().isEmpty().withMessage('Description is required'),
-    body('percentageOff')
+    body('product').not().isEmpty().withMessage('product name is required'),
+    body('description')
       .not()
       .isEmpty()
-      .withMessage('percentageOff is required'),
+      .withMessage('offer description is required'),
+    body('percentageOff')
+      .isFloat({ gt: 0 })
+      .withMessage('Percentage Off is required'),
+    body('productPrice')
+      .isFloat({ gt: 0 })
+      .withMessage('product original price is required'),
     body('price')
       .isFloat({ gt: 0 })
-      .withMessage('Price must be provided and must be greater than 0'),
+      .withMessage('Price must be greater than 0'),
   ],
   validationRequest,
   async (req: Request, res: Response) => {
@@ -45,17 +50,19 @@ router.put(
     }
 
     home.set({
-      title: req.body.title,
+      product: req.body.product,
       description: req.body.description,
       price: req.body.price,
       percentageOff: req.body.percentageOff,
+      productPrice: req.body.productPrice,
     });
 
     await home.save();
 
     new HomeUpdatedPublisher(natsWrapper.client).publish({
       id: home.id,
-      title: home.title,
+      product: home.product,
+      productPrice: home.productPrice,
       description: home.description,
       percentageOff: home.percentageOff,
       price: home.price,

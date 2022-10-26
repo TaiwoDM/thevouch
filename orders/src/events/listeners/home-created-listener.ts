@@ -8,11 +8,11 @@ export class HomeCreatedListener extends Listener<HomeCreatedEvent> {
   queueGroupName = queueGroupName;
 
   async onMessage(data: HomeCreatedEvent['data'], msg: Message) {
-    const { id, title, price } = data;
+    const { id, product, price } = data;
 
     const home = Home.build({
       id,
-      title,
+      product,
       price,
     });
     await home.save();

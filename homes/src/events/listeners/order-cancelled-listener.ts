@@ -20,7 +20,8 @@ export class OrderCancelledListener extends Listener<OrderCancelledEvent> {
     await new HomeUpdatedPublisher(this.client).publish({
       id: home.id,
       version: home.version,
-      title: home.title,
+      product: home.product,
+      productPrice: home.productPrice,
       description: home.description,
       percentageOff: home.percentageOff,
       price: home.price,

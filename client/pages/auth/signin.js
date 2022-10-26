@@ -46,13 +46,12 @@ export default () => {
     //   <button className="btn btn-primary">Sign In</button>
     // </form>
 
-    <main class="form-signin m-auto" style={{ maxWidth: '500px' }}>
-      <br />
-      <br />
-      <form onSubmit={onSubmit}>
-        <h1 class="h3 mb-3 fw-normal">Sign in</h1>
+    // <div class="d-flex align-items-center">
+    <div className="row" style={{ height: '60vh' }}>
+      <form onSubmit={onSubmit} className="row col-10 col-lg-6  g-3 m-auto ">
+        <h1 className="h3 mb-3 fw-normal">Sign in</h1>
 
-        <div class="form-floating mb-3">
+        <div className="form-floating mb-3">
           <input
             type="email"
             className="form-control"
@@ -63,10 +62,10 @@ export default () => {
           />
           <label for="floatingInput">Email address</label>
         </div>
-        <div class="form-floating mb-3">
+        <div className="form-floating mb-3">
           <input
             type="password"
-            class="form-control"
+            className="form-control"
             id="floatingPassword"
             placeholder="Password"
             value={password}
@@ -76,10 +75,10 @@ export default () => {
         </div>
 
         {errors}
-        <button class="w-25 btn btn-md btn-secondary" type="submit">
+        <button className="w-25 btn btn-md btn-secondary" type="submit">
           Sign in
         </button>
       </form>
-    </main>
+    </div>
   );
 };

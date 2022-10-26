@@ -5,7 +5,7 @@ import { Order, OrderStatus } from './order';
 
 interface HomeAttributes {
   id: string;
-  title: string;
+  product: string;
   price: number;
 }
 
@@ -16,14 +16,14 @@ interface HomeModel extends mongoose.Model<HomeDoc> {
 
 export interface HomeDoc extends mongoose.Document {
   version: number;
-  title: string;
+  product: string;
   price: number;
   isReserved(): Promise<boolean>;
 }
 
 const homeSchema = new mongoose.Schema(
   {
-    title: {
+    product: {
       type: String,
       required: true,
     },
@@ -61,7 +61,7 @@ homeSchema.statics.findByEvent = async (event: {
 homeSchema.statics.build = (homeAttributes: HomeAttributes) => {
   return new Home({
     _id: homeAttributes.id,
-    title: homeAttributes.title,
+    product: homeAttributes.product,
     price: homeAttributes.price,
   });
 };

@@ -1,5 +1,6 @@
 import useRequest from './../../hooks/use-request';
 import Router from 'next/router';
+import Link from 'next/link';
 
 const HomeShow = ({ home }) => {
   const { doRequest, errors } = useRequest({
@@ -14,14 +15,52 @@ const HomeShow = ({ home }) => {
   });
 
   return (
-    <div>
-      <h1>{home.title}</h1>
-      <h4>Price: {home.price}</h4>
-      <h4>Percentage Off: {home.percentageOff}%</h4>
+    <div className="container">
+      <h1 className="mt-5">{home.product}</h1>
+      <div class="h-100 mt-5 p-5 text-bg-dark rounded-3">
+        <p className="mb-0">Product/Service price - ${home.productPrice}</p>
+        <p className="mb-0">
+          Percentage off original price - ${home.percentageOff}
+        </p>
+        <p className="mb-0">
+          New product price - $
+          {(
+            home.productPrice -
+            (home.percentageOff / 100) * home.productPrice
+          ).toFixed(2)}
+        </p>
+        <p>Voucher price - ${home.price}</p>
+
+        <div class="jumbotron  pt-3">
+          <div>
+            <i>Know more....</i>
+          </div>
+          <p>{home.description}</p>
+          <div className="row">
+            <div className="col-sm-1"></div>
+            <div className="col-sm-1"></div>
+            <div className="col-sm-1"></div>
+            <div className="col-sm-1"></div>
+            <div className="col-sm-1"></div>
+            <div className="col-sm-1"></div>
+            <div className="col-sm-1"></div>
+            <div className="col-sm-1"></div>
+            <div className="col-sm-1"></div>
+            <div className="col-sm-1"></div>
+            <div className="col-sm-1"></div>
+            <div className="col-sm-1">
+              <button
+                onClick={() => doRequest()}
+                className="btn btn-warning float-right"
+              >
+                Purchase
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
       {errors}
-      <button onClick={() => doRequest()} className="btn btn-primary">
-        Purchase
-      </button>
     </div>
   );
 };

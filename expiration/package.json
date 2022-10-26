@@ -10,7 +10,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@gethomes/common": "^1.0.12",
+    "@gethomes/common": "^1.0.13",
     "@types/bull": "^4.10.0",
     "bull": "^4.10.1",
     "node-nats-streaming": "^0.3.2",

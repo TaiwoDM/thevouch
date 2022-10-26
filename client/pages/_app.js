@@ -12,7 +12,7 @@ const AppComponent = ({ Component, pageProps, currentUser }) => {
       <div className="mt-1 container">
         <Component currentUser={currentUser} {...pageProps} />
       </div>
-      <Footer />
+      {/* <Footer /> */}
     </div>
   );
 };

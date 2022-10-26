@@ -3,7 +3,8 @@ import useRequest from '../../hooks/use-request';
 import Router from 'next/router';
 
 const NewHome = () => {
-  const [title, setTitle] = useState('');
+  const [product, setProduct] = useState('');
+  const [productPrice, setProductPrice] = useState('');
   const [description, setDescription] = useState('');
   const [percentageOff, setPercentageOff] = useState('');
   const [price, setPrice] = useState('');
@@ -11,7 +12,8 @@ const NewHome = () => {
     url: '/api/homes',
     method: 'post',
     body: {
-      title,
+      product,
+      productPrice,
       price,
       percentageOff,
       description,
@@ -36,27 +38,35 @@ const NewHome = () => {
   };
 
   return (
-    <div>
-      <h1>Create a Home</h1>
-      <form onSubmit={onSubmit}>
-        <div className="form-group">
-          <label>Title</label>
+    <div className="row">
+      <form onSubmit={onSubmit} className="row col-lg-6 g-3 m-auto">
+        <h1>New Voucher</h1>
+        <div className="form-group col-12">
+          <label className="form-label">Product/Service</label>
           <input
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
+            value={product}
+            onChange={(e) => setProduct(e.target.value)}
             className="form-control"
           />
         </div>
-        <div className="form-group">
-          <label>Description</label>
+        <div className="form-group col-md-4">
+          <label className="form-label">Original price</label>
           <input
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
+            value={productPrice}
+            onChange={(e) => setProductPrice(e.target.value)}
             className="form-control"
           />
         </div>
-        <div className="form-group">
-          <label>Price</label>
+        <div className="form-group col-md-4">
+          <label className="form-label">Percentage off</label>
+          <input
+            value={percentageOff}
+            onChange={(e) => setPercentageOff(e.target.value)}
+            className="form-control"
+          />
+        </div>
+        <div className="form-group col-md-4">
+          <label className="form-label">Voucher price</label>
           <input
             value={price}
             onBlur={onBlur}
@@ -65,16 +75,17 @@ const NewHome = () => {
           />
         </div>
         <div className="form-group">
-          <label>Percentage Off</label>
-          <input
-            value={percentageOff}
-            onChange={(e) => setPercentageOff(e.target.value)}
+          <label className="form-label">Description</label>
+          <textarea
+            style={{ height: '200px' }}
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
             className="form-control"
           />
         </div>
         {errors}
         <br />
-        <button className="btn btn-primary">Submit</button>
+        <button className="btn btn-primary w-25 ">Submit</button>
       </form>
     </div>
   );
