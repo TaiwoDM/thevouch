@@ -30,8 +30,8 @@ router.delete(
     new OrderCancelledPublisher(natsWrapper.client).publish({
       id: order.id,
       version: order.version,
-      home: {
-        id: order.home.id,
+      voucher: {
+        id: order.voucher.id,
       },
     });
 

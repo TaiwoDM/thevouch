@@ -1,19 +1,19 @@
 import Link from 'next/link';
 
-const LandingPage = ({ homes, currentUser }) => {
-  const homeList = homes.map((home, index) => {
+const LandingPage = ({ vouchers, currentUser }) => {
+  const voucherList = vouchers.map((voucher, index) => {
     return (
-      <div key={home.id} className="col-md-6">
+      <div key={voucher.id} className="col-md-6">
         <div className="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
           <div className="col p-4 d-flex flex-column position-static">
             <strong className="d-inline-block mb-2 text-primary">
-              {home.percentageOff}% off!
+              {voucher.percentageOff}% off!
             </strong>
-            <h3 className="mb-0">{home.product}</h3>
+            <h3 className="mb-0">{voucher.product}</h3>
             <p className="card-text mb-auto">
-              {home.description.slice(0, 100)}...
+              {voucher.description.slice(0, 100)}...
             </p>
-            <Link href="/homes/[homeId]" as={`homes/${home.id}`}>
+            <Link href="/vouchers/[voucherId]" as={`vouchers/${voucher.id}`}>
               <a>View full detail</a>
             </Link>
           </div>
@@ -43,7 +43,7 @@ const LandingPage = ({ homes, currentUser }) => {
         </div>
       </div>
 
-      <div className="row mb-2">{homeList}</div>
+      <div className="row mb-2">{voucherList}</div>
       <footer className="border-top py-2 my-4 footer  container">
         <p className="text-center text-muted">MSc. 2022.</p>
       </footer>
@@ -52,11 +52,9 @@ const LandingPage = ({ homes, currentUser }) => {
 };
 
 LandingPage.getInitialProps = async (context, client) => {
-  const { data } = await client.get('/api/homes');
+  const { data } = await client.get('/api/vouchers');
 
-  console.log(data);
-
-  return { homes: data };
+  return { vouchers: data };
 };
 
 export default LandingPage;

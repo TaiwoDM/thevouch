@@ -8,7 +8,7 @@ metadata:
     nginx.ingress.kubernetes.io/use-regex: 'true'
 spec:
   rules:
-    - host: gethomes.dev
+    - host: thevouch.dev
       http:
         paths:
           - path: /api/payments/?(.*)
@@ -25,11 +25,11 @@ spec:
                 name: auth-srv
                 port:
                   number: 3000
-          - path: /api/homes/?(.*)
+          - path: /api/vouchers/?(.*)
             pathType: Prefix
             backend:
               service:
-                name: homes-srv
+                name: vouchers-srv
                 port:
                   number: 3000
           - path: /api/orders/?(.*)

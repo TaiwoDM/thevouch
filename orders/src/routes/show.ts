@@ -13,7 +13,7 @@ router.get(
   '/api/orders/:orderId',
   requireAuth,
   async (req: Request, res: Response) => {
-    const order = await Order.findById(req.params.orderId).populate('home');
+    const order = await Order.findById(req.params.orderId).populate('voucher');
 
     if (!order) {
       throw new NotFoundError();

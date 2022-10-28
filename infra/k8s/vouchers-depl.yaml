@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: vouchers-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: vouchers
+  template:
+    metadata:
+      labels:
+        app: vouchers
+    spec:
+      containers:
+        - name: vouchers
+          image: dsprouts/vouchers
+          env:
+            - name: MONGO_URI
+              value: 'mongodb://vouchers-mongo-srv:27017/vouchers'
+            - name: JWT_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: jwt-secret
+                  key: JWT_KEY
+            - name: NATS_URL
+              value: 'http://nats-srv:4222'
+            - name: NATS_CLUSTER_ID
+              value: thevouch
+            - name: NATS_CLIENT_ID
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+
+---
+# ClusterIP service config. It can be done on a stand alone config but since there's a 1-1 mapping between service and deployments. This works
+apiVersion: v1
+kind: Service
+metadata:
+  name: vouchers-srv
+spec:
+  selector:
+    app: vouchers
+  ports:
+    - name: vouchers
+      protocol: TCP
+      port: 3000
+      targetPort: 3000

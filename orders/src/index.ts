@@ -2,8 +2,8 @@ import mongoose from 'mongoose';
 
 import { app } from './app';
 import { natsWrapper } from './nats_wrapper';
-import { HomeCreatedListener } from './events/listeners/home-created-listener';
-import { HomeUpdatedListener } from './events/listeners/home-updated-listener';
+import { VoucherCreatedListener } from './events/listeners/voucher-created-listener';
+import { VoucherUpdatedListener } from './events/listeners/voucher-updated-listener';
 import { ExpirationCompleteListener } from './events/listeners/expiration-complete-listener';
 import { PaymentCreatedListener } from './events/listeners/payment-created-listener';
 
@@ -38,15 +38,16 @@ const start = async () => {
     process.on('SIGINT', () => natsWrapper.client.close());
     process.on('SIGTERM', () => natsWrapper.client.close());
 
-    new HomeCreatedListener(natsWrapper.client).listen();
-    new HomeUpdatedListener(natsWrapper.client).listen();
+    new VoucherCreatedListener(natsWrapper.client).listen();
+    new VoucherUpdatedListener(natsWrapper.client).listen();
     new ExpirationCompleteListener(natsWrapper.client).listen();
     new PaymentCreatedListener(natsWrapper.client).listen();
 
     const connect = await mongoose.connect(process.env.MONGO_URI);
     console.log('Connected to mongodb');
   } catch (err) {
-    console.log('something went wrong while connecting to db');
+    console.log(`something went wrong while connecting to db or nats
+    ${err}`);
   }
 
   app.listen(3000, () => {

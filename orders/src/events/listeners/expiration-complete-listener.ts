@@ -14,7 +14,7 @@ export class ExpirationCompleteListener extends Listener<ExpirationCompleteEvent
   subject: Subjects.ExpirationComplete = Subjects.ExpirationComplete;
 
   async onMessage(data: ExpirationCompleteEvent['data'], msg: Message) {
-    const order = await Order.findById(data.orderId).populate('home');
+    const order = await Order.findById(data.orderId).populate('voucher');
 
     if (!order) {
       throw new Error('Order not found');
@@ -32,8 +32,8 @@ export class ExpirationCompleteListener extends Listener<ExpirationCompleteEvent
     await new OrderCancelledPublisher(this.client).publish({
       id: order.id,
       version: order.version,
-      home: {
-        id: order.home.id,
+      voucher: {
+        id: order.voucher.id,
       },
     });
 

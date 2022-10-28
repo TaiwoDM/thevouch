@@ -42,7 +42,8 @@ const start = async () => {
     const connect = await mongoose.connect(process.env.MONGO_URI);
     console.log('Connected to mongodb');
   } catch (err) {
-    console.log('something went wrong while connecting to db');
+    console.log(`something went wrong while connecting to db or nats
+    ${err}`);
   }
 
   app.listen(3000, () => {

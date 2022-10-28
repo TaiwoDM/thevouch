@@ -4,13 +4,13 @@ import { updateIfCurrentPlugin } from 'mongoose-update-if-current';
 
 export { OrderStatus };
 
-import { HomeDoc } from './home';
+import { VoucherDoc } from './voucher';
 
 interface OrderAttributes {
   userId: string;
   status: OrderStatus;
   expiresAt: Date;
-  home: HomeDoc;
+  voucher: VoucherDoc;
 }
 
 interface OrderModel extends mongoose.Model<OrderDoc> {
@@ -21,7 +21,7 @@ interface OrderDoc extends mongoose.Document {
   userId: string;
   status: OrderStatus;
   expiresAt: Date;
-  home: HomeDoc;
+  voucher: VoucherDoc;
   version: number;
 }
 
@@ -40,9 +40,9 @@ const orderSchema = new mongoose.Schema(
     expiresAt: {
       type: mongoose.Schema.Types.Date,
     },
-    home: {
+    voucher: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'Home',
+      ref: 'Voucher',
     },
   },
   {

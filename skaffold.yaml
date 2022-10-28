@@ -24,8 +24,8 @@ build:
         manual:
           - src: '**/*.js'
             dest: .
-    - image: dsprouts/homes
-      context: homes
+    - image: dsprouts/vouchers
+      context: vouchers
       docker:
         dockerfile: Dockerfile
       sync:
