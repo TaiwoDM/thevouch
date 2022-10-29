@@ -1,11 +1,11 @@
-name: deploy-payment
+name: deploy-ppaymentsayment
 
 on:
   push:
     branches:
       - main
     paths:
-      - 'payment/**'
+      - 'payments/**'
 
 jobs:
   build:
@@ -16,10 +16,10 @@ jobs:
         env:
           DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
-      - run: cd payment && docker build -t dsprouts/payment .
-      - run: docker push dsprouts/payment
+      - run: cd payments && docker build -t dsprouts/payments .
+      - run: docker push dsprouts/payments
       - uses: digitalocean/action-doctl@v2
         with:
           token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
       - run: doctl kubernetes cluster kubeconfig save thevouch
-      - run: kubectl rollout restart deployment payment-depl
+      - run: kubectl rollout restart deployment payments-depl
