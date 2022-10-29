@@ -50,7 +50,8 @@ spec:
 kind: Service
 apiVersion: v1
 metadata:
-  name: ingress-srv
+  name: ingress-nginx-controller
+  namespace: ingress-nginx
   annotations:
     service.beta.kubernetes.io/do-loadbalancer-certificate-id: '1234-5678-9012-3456'
     service.beta.kubernetes.io/do-loadbalancer-protocol: 'https'
