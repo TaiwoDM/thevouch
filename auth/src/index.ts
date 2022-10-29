@@ -18,7 +18,7 @@ const start = async () => {
     console.log('Connected to mongodb');
   } catch (err) {
     console.log(`${err}
-    something went wrong while connecting to db`);
+    something went wrong while connecting to mongo`);
   }
 
   app.listen(3000, () => {
