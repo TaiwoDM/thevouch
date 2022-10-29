@@ -15,11 +15,12 @@ const start = async () => {
     const connect = await mongoose.connect(process.env.MONGO_URI);
     console.log('Connected to mongodb');
   } catch (err) {
-    console.log('something went wrong while connecting to db');
+    console.log(`${err}
+    something went wrong while connecting to db`);
   }
 
   app.listen(3000, () => {
-    console.log('Listening on port 3000!!!!!');
+    console.log('Listening on port 3000!!!!!...');
   });
 };
 
