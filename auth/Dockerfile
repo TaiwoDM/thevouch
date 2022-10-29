@@ -1,8 +1,8 @@
 FROM node:16
 
-WORKDIR /usr/app
+WORKDIR /app
 COPY ./package.json ./
-RUN npm install
+RUN npm install --only=prod
 COPY ./ ./
 
 CMD ["npm", "start"]
