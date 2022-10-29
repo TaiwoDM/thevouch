@@ -12,7 +12,9 @@ const start = async () => {
   }
 
   try {
-    const connect = await mongoose.connect(process.env.MONGO_URI);
+    const connect = await mongoose.connect(process.env.MONGO_URI, {
+      serverSelectionTimeoutMS: 50000,
+    });
     console.log('Connected to mongodb');
   } catch (err) {
     console.log(`${err}
