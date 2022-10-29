@@ -8,7 +8,7 @@ metadata:
     nginx.ingress.kubernetes.io/use-regex: 'true'
 spec:
   rules:
-    - host: thevouch.dev
+    - host: www.thevouch-msc-fyp.shop
       http:
         paths:
           - path: /api/payments/?(.*)
