@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: payments-mongo
-          image: mongo:6.0
+          image: mongo
 ---
 apiVersion: v1
 kind: Service
