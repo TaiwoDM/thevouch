@@ -50,7 +50,7 @@ spec:
 kind: Service
 apiVersion: v1
 metadata:
-  name: hello
+  name: ingress-srv
   annotations:
     service.beta.kubernetes.io/do-loadbalancer-certificate-id: '1234-5678-9012-3456'
     service.beta.kubernetes.io/do-loadbalancer-protocol: 'https'
@@ -59,7 +59,7 @@ metadata:
 spec:
   type: LoadBalancer
   selector:
-    app: thevouch
+    app: ingress-srv
   ports:
     - name: https
       protocol: TCP
