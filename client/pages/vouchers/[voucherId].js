@@ -20,7 +20,7 @@ const VoucherShow = ({ voucher }) => {
       <div className="h-100 mt-5 p-5 text-bg-dark rounded-3">
         <p className="mb-0">Product/Service price - ${voucher.productPrice}</p>
         <p className="mb-0">
-          Percentage off original price - ${voucher.percentageOff}
+          Percentage off original price - {voucher.percentageOff}%
         </p>
         <p className="mb-0">
           New product price - $

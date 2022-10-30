@@ -32,14 +32,18 @@ const LandingPage = ({ vouchers, currentUser }) => {
           </p>
           <p className="lead mb-0">
             <Link href="/">
-              <a className="text-white fw-bold">Explore....</a>
+              <a className="text-white fw-bold">Explore...</a>
             </Link>
           </p>
-          <p className="lead mb-0">
-            <Link href="/auth/signup">
-              <a className="text-white fw-bold">Join today...</a>
-            </Link>
-          </p>
+          {currentUser ? (
+            ''
+          ) : (
+            <p className="lead mb-0">
+              <Link href="/auth/signup">
+                <a className="text-white fw-bold">Join today...</a>
+              </Link>
+            </p>
+          )}
         </div>
       </div>
 
