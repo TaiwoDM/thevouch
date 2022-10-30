@@ -66,7 +66,6 @@ metadata:
     app.kubernetes.io/component: controller
 spec:
   type: LoadBalancer
-  externalTrafficPolicy: Local
   selector:
     app.kubernetes.io/name: ingress-nginx
     app.kubernetes.io/instance: ingress-nginx
