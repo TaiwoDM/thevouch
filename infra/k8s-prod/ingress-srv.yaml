@@ -53,7 +53,7 @@ metadata:
   annotations:
     service.beta.kubernetes.io/do-loadbalancer-certificate-id: '1234-5678-9012-3456'
     service.beta.kubernetes.io/do-loadbalancer-enable-proxy-protocol: 'true'
-    # Uncomment once hello.example.com points to the external IP address of the DO load-balancer
+    # Uncomment once hello.example.com points to the external IP address of the DO load-balancer.
     service.beta.kubernetes.io/do-loadbalancer-hostname: 'www.thevouch-msc-fyp.shop'
   labels:
     helm.sh/chart: ingress-nginx-4.3.0
