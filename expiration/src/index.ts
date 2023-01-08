@@ -34,4 +34,4 @@ const start = async () => {
 };
 
 start();
-// changed k8s context
+// changed k8s contex
